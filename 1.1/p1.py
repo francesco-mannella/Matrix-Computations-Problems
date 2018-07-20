@@ -23,27 +23,26 @@ I = np.eye(n, n)
 
 
 # Compute by columns
+# We must comute all columns at each iteration because they are all neded in the
+# multiplication
 
 # store te curren state of the multiplication over iterations 
 D = np.zeros((n, n))   
 # store last multiplication
 B = I.copy()  
 
+C = 0*I
+B = I.copy()
 # iterate over x elements
 for k in range(r):   
-    # the matrixto be multiplied with the current result of previous iterations
+    # the matrix to be multiplied with the current result of 
+    # previous iterations
     E = A - x[k] * I 
     # storage for the current multiplication
-    C = np.zeros((n, n))
     for j in range(n):
         C[:, j]  += np.dot(B, E[:, j])
-    # save current multiplication as the last till now
     B = C.copy()
-    # update current state of the whole multiplication
-    D += B 
-
-    print C[:, 0].reshape(n, 1)
-
+    print C[:,0].reshape(-1,1)
 
 print
 
@@ -52,15 +51,18 @@ print
 # initial value of the desired row 
 b = I[0]
 # store desired row over iterations
-c = np.zeros([1, n])
+c = 0*I[0]
 
 # iterate over x elements
 for k in range(r):   
-    # the matrixto be multiplied with the current result of previous iterations
+    # the matrix to be multiplied with the current result of 
+    # previous iterations
     E = A - x[k] * I 
     # storage for the current multiplication
     c  += np.dot(b, E)
     b = c.copy()
 
     print c
+
+print 
 

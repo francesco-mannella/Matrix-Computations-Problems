@@ -1,24 +1,66 @@
+# -*- coding: utf-8 -*-
+
 import numpy as np
+
+
+# Suppose A ∈ ℝ^(n × n) and x ∈ ℝ^(r) are given. Give an algorithm for computing
+# the first column of M = (A − x₁I)...(A − xrI)  
+
+# Solution: A single column cannot be computed indipendently from the rest of
+# the matrix. This operation cannot be decompose into indipendent operations
+# over columns
+
+
 
 
 n = 4
 r = 3
 
+# A and x
 A = np.arange(n*n).reshape(n, n)
 x = np.arange(r)
 I = np.eye(n, n)
 
-def get_mat(M, s): return M -s*I
 
-D = np.zeros((n, n))
+# Compute by columns
 
-B = I.copy()
-for h in range(r):   
-    E = A - x[h] * I
+# store te curren state of the multiplication over iterations 
+D = np.zeros((n, n))   
+# store last multiplication
+B = I.copy()  
+
+# iterate over x elements
+for k in range(r):   
+    # the matrixto be multiplied with the current result of previous iterations
+    E = A - x[k] * I 
+    # storage for the current multiplication
     C = np.zeros((n, n))
     for j in range(n):
         C[:, j]  += np.dot(B, E[:, j])
+    # save current multiplication as the last till now
     B = C.copy()
+    # update current state of the whole multiplication
     D += B 
-    print C[:, 0]
+
+    print C[:, 0].reshape(n, 1)
+
+
+print
+
+# Compute by rows
+
+# initial value of the desired row 
+b = I[0]
+# store desired row over iterations
+c = np.zeros([1, n])
+
+# iterate over x elements
+for k in range(r):   
+    # the matrixto be multiplied with the current result of previous iterations
+    E = A - x[k] * I 
+    # storage for the current multiplication
+    c  += np.dot(b, E)
+    b = c.copy()
+
+    print c
 

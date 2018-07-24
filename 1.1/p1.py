@@ -4,7 +4,7 @@ import numpy as np
 
 
 # Suppose A ∈ ℝ^(n × n) and x ∈ ℝ^(r) are given. Give an algorithm for
-# computing the first column of M = (A − x₁I)...(A − xrI)  
+# computing the first column of M = (A − x[1]I)...(A − x[r]I)  
 
 # Solution: A single column cannot be computed indipendently from the
 # rest of the matrix. This operation cannot be decomposed into
